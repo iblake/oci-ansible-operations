@@ -1,0 +1,12 @@
+databases:
+  - db_name: DEMO1
+    db_unique_name: DEMO1
+    pdb_name: PDB1
+    db_home_display_name: "My_DB_Home_1"
+    db_version: "19c"
+  
+  - db_name: DEMO2
+    db_unique_name: DEMO2
+    pdb_name: PDB2
+    db_home_display_name: "My_DB_Home_2"
+    db_version: "19c"

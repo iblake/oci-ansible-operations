@@ -1,0 +1,11 @@
+---
+- name: Run only getExaCSInfra from diagnostic role
+  hosts: localhost
+  connection: local
+  gather_facts: no
+  vars:
+    region: "{{ region }}"
+    #compartment_ocid: "{{ compartment_id }}"
+  roles:
+    - diagnostic
+

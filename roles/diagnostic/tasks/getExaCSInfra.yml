@@ -1,10 +1,12 @@
----
 - name: Get information about Cloud Exadata Infrastructures
   oracle.oci.oci_database_cloud_exadata_infrastructure_facts:
-    compartment_id: "{{ compartment_ocid }}"
+    compartment_id: "{{ compartment_id }}"
     region: "{{ region }}"
+    config_profile_name: EXACS
   register: exacs_infra
 
-- name: Show raw output (debug)
+  # After the task that registers exacs_infra
+- name: Debug collected Exadata Infrastructures
   debug:
     var: exacs_infra
+  when: exacs_infra.oci_database_cloud_exadata_infrastructure_facts.cloud_exadata_infrastructures is defined

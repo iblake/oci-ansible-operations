@@ -1,0 +1,17 @@
+- name: Get VM Clusters from Cloud Exadata Infrastructure
+  oracle.oci.oci_database_vm_cluster_facts:
+    exadata_infrastructure_id: "{{ item.id }}"
+    compartment_id: "{{ vm_cluster_compartment_id | default(item.compartment_id) }}"
+    region: "{{ region }}"
+  loop: "{{ exacs_infra.cloud_exadata_infrastructures }}"
+  register: vm_clusters_raw
+
+
+- name: Debug raw VM Clusters result
+  debug:
+    var: vm_clusters_raw
+
+- name: Extract VM Cluster list
+  set_fact:
+    vm_clusters: "{{ vm_clusters_raw.results | map(attribute='vm_clusters') | sum(start=[]) }}"
+

@@ -1,0 +1,17 @@
+---
+- name: Create multiple CDBs with PDBs on ExaCS
+  hosts: all
+  gather_facts: no
+  vars_files:
+    - "../../inventories/exacs/group_vars/db_catalogue.yml"
+  tasks:
+    - name: Create each database
+      include_role:
+        name: create_db
+      vars:
+        db_name: "{{ item.db_name }}"
+        db_unique_name: "{{ item.db_unique_name }}"
+        pdb_name: "{{ item.pdb_name }}"
+        db_home_display_name: "{{ item.db_home_display_name }}"
+        db_version: "{{ item.db_version }}"
+      loop: "{{ databases }}"

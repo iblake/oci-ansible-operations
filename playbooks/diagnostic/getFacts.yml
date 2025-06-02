@@ -1,9 +1,11 @@
 ---
 - name: Get ExaCS infrastructure facts (diagnostic)
-  hosts: all
-  gather_facts: false
+  hosts: localhost
+  connection: local
+  gather_facts: no
 
-  tasks:
-    - name: Get ExaCS infra info
-      import_tasks: ../../roles/diagnostic/tasks/getExaCSInfra.yml
+  vars_files:
+    - "../../inventories/exacs/group_vars/all.yml"
 
+  roles:
+    - diagnostic

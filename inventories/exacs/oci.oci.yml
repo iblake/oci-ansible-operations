@@ -1,17 +1,9 @@
 plugin: oracle.oci.oci
-config_file: ~/.oci/config
-config_profile: EXACS  # O el nombre real de tu perfil
-
 regions:
   - eu-frankfurt-1
-
-fetch_db_hosts: true
-fetch_compute_hosts: false
-
 compartments:
-  - compartment_ocid: ocid1.compartment.oc1..xx
-
-enable_parallel_processing: true
-
-hostname_format_preferences:
-  - "private_ip"
+  - compartment_id: "ocid1.compartment.oc1..aaaaaaaaay4x2z23bzlup7o6gmksl5sbhxnc2st5ifq6sg4hxpdulvcu7m7a"
+    #name: "demo"    
+oci_profile: "EXACS"
+#key_by: "display_name"
+hostname: "localhost"
