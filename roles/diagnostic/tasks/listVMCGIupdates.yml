@@ -1,0 +1,29 @@
+---
+# Copyright (c) 2020, 2023 Oracle and/or its affiliates.
+# This software is made available to you under the terms of the GPL 3.0 license or the Apache 2.0 license.
+# GNU General Public License v3.0+ (see COPYING or https://www.gnu.org/licenses/gpl-3.0.txt)
+# Apache License v2.0
+# See LICENSE.TXT for details.
+
+- name: List ExaCS VM Cluster GI patches
+  hosts: localhost
+  collections:
+    - oracle.oci
+  connection: local
+  vars:
+    cloud_vmcluster_ocid: "ocid1.cloudvmcluster.oc1..."
+
+  tasks:
+    - block: 
+
+        - name: List cloud_vm_cluster GI patches
+          oci_database_cloud_vm_cluster_update_facts:
+            # required
+            cloud_vm_cluster_id: "{{ cloud_vmcluster_ocid }}"
+
+            # optional
+            update_type: GI_PATCH
+
+          register: vmc_update
+        - debug:
+              msg: "{{ vmc_update }}"

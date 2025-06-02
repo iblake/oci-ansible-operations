@@ -1,0 +1,6 @@
+---
+- import_tasks: createDGAssociationExistingVMC.yml
+- import_tasks: createDGAssociationNewVMC.yml
+- import_tasks: failoverDG.yml
+- import_tasks: reinstateDG.yml
+- import_tasks: switchoverDG.yml

@@ -1,0 +1,4 @@
+---
+- import_tasks: restartCDB.yml
+- import_tasks: restartDBNode.yml
+- import_tasks: restartPDB.yml

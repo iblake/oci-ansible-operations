@@ -1,0 +1,36 @@
+---
+# Copyright (c) 2020, 2023 Oracle and/or its affiliates.
+# This software is made available to you under the terms of the GPL 3.0 license or the Apache 2.0 license.
+# GNU General Public License v3.0+ (see COPYING or https://www.gnu.org/licenses/gpl-3.0.txt)
+# Apache License v2.0
+# See LICENSE.TXT for details.
+
+- name: Creates a Non CDB
+  hosts: exacs
+  vars:
+    db_name: "PADBANS1"
+    oh_path: "/u02/app/oracle/product/19.0.0.0/dbhome_15"
+    db_unique_name: "PADBANS1"
+    pdb_name: "PADBANS1PDB1"
+    character_set: "AL32UTF8"
+    ncharacter_set: "AL16UTF16"
+    admin_password: "WElcome12345##"
+    tde_wallet_password: "WElcome12345##"
+
+  tasks:
+    - block: 
+
+        - name: Create Non-CDB
+          become: yes
+          become_method: sudo
+          become_user: root
+          command: dbaascli database create --oracleHome {{ oh_path }} --dbName {{ db_name }} --dbUniqueName {{ db_unique_name }} --pdbName {{ pdb_name }} --createAsCDB false --dbCharset {{ character_set}} --dbNCharset {{ ncharacter_set }}
+          args: 
+            stdin: |
+              {{ admin_password }}
+              {{ admin_password }}
+              {{ tde_wallet_password }}
+              {{ tde_wallet_password }}
+          register: result
+        - debug:
+              msg: "{{ result }}"

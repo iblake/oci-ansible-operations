@@ -1,0 +1,32 @@
+---
+# Copyright (c) 2020, 2023 Oracle and/or its affiliates.
+# This software is made available to you under the terms of the GPL 3.0 license or the Apache 2.0 license.
+# GNU General Public License v3.0+ (see COPYING or https://www.gnu.org/licenses/gpl-3.0.txt)
+# Apache License v2.0
+# See LICENSE.TXT for details.
+
+- name: Perform Oracle Data Guard reinstate operation
+  hosts: localhost
+  collections:
+    - oracle.oci
+  connection: local
+  vars:
+    # required
+    database_ocid: "ocid1.database.oc1..."
+    data_guard_association_ocid: "ocid1.dataguardassociation.oc1..."
+    database_admin_pw: "WElcome12345##"
+
+  tasks:
+    - block: 
+
+        - name: Performs Data Guard reinstate operation
+          oci_database_data_guard_association_actions:
+            # required
+            database_id: "{{ database_ocid }}"
+            data_guard_association_id: "{{ data_guard_association_ocid }}"
+            database_admin_password: "{{ database_admin_pw }}"
+            action: reinstate
+            
+          register: result
+        - debug:
+              msg: "{{ result }}"

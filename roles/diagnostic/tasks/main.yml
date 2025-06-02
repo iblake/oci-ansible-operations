@@ -1,0 +1,4 @@
+---
+- import_tasks: getExaCSInfra.yml
+- import_tasks: listVMCGIupdates.yml
+- import_tasks: listVMCOSupdates.yml

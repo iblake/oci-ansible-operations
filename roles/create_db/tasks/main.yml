@@ -1,0 +1,12 @@
+---
+- import_tasks: createCDB.yml
+- import_tasks: createCDB_PDB.yml
+- import_tasks: createDBSWImage.yml
+- import_tasks: createNonCDB.yml
+- import_tasks: createOH.yml
+- import_tasks: createOHCDB.yml
+- import_tasks: createPDB.yml
+- import_tasks: deleteCDB.yml
+- import_tasks: deleteDBSWImage.yml
+- import_tasks: deleteOH.yml
+- import_tasks: deletePDB.yml

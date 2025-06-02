@@ -1,0 +1,13 @@
+# ─────────────────────────────────────────────────────────────
+# Example static inventory file for local testing purposes only
+# This is NOT used in production — the real inventory is dynamic:
+# → inventories/exacs/inventory.yml
+# ─────────────────────────────────────────────────────────────
+
+[exacs]
+dbnode1.example.internal
+dbnode2.example.internal
+
+[exacs:vars]
+ansible_user=opc
+ansible_ssh_private_key_file=~/.ssh/id_rsa

@@ -1,0 +1,3 @@
+plugin: constructed
+inventory:
+  - oci_inventory.yml

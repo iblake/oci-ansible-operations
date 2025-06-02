@@ -1,0 +1,35 @@
+---
+# Copyright (c) 2020, 2023 Oracle and/or its affiliates.
+# This software is made available to you under the terms of the GPL 3.0 license or the Apache 2.0 license.
+# GNU General Public License v3.0+ (see COPYING or https://www.gnu.org/licenses/gpl-3.0.txt)
+# Apache License v2.0
+# See LICENSE.TXT for details.
+
+- name: Create CDB PADBANS
+  hosts: localhost
+  collections:
+    - oracle.oci
+  connection: local
+  vars:
+      db_home_ocid: "ocid1.dbhome.oc1.."
+      db_admin_password: "WElcome12345##"
+      dbname: "PADBANS"
+      db_uniquename: "PADBANS"
+      database_software_image_ocid: "ocid1.databasesoftwareimage.oc1.."
+      pdb_dbname: "PADBANSPDB1"
+      tde_walletpassword: "WElcome12345##"
+      characterset: "AL32UTF8"
+      nat_characterset: "AL16UTF16"
+
+  tasks:
+  - import_tasks: common/createCDB.yml
+    vars:    
+      db_home_id: "{{ db_home_ocid }}"
+      admin_password: "{{ db_admin_password }}"
+      db_name: "{{ dbname }}"
+      db_unique_name: "{{ db_uniquename }}"
+      database_software_image_id: "{{ database_software_image_ocid }}"
+      pdb_name: "{{ pdb_dbname }}"
+      tde_wallet_password: "{{ tde_walletpassword }}"
+      character_set: "{{ characterset }}"
+      ncharacter_set: "{{ nat_characterset }}"

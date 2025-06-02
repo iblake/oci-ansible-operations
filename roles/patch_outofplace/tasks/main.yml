@@ -1,0 +1,4 @@
+---
+- import_tasks: patchOutOfPlaceCDB.yml
+- import_tasks: patchVMCOSGI-apply.yml
+- import_tasks: patchVMCOSGI-precheck.yml

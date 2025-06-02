@@ -1,0 +1,19 @@
+# NOTA: pendiente de cifrar ansible-vault encrypt group_vars/all.yml
+# Variables comunes para todos los hosts gestionados por este inventario
+
+oci_region: eu-frankfurt-1
+compartment_id: ocid1.compartment.oc1..aaaaaaaaxxxxxxxyyyyyyyyzzzzzzzz
+
+# Nombre de la base de datos a crear
+db_name: AUTODB
+
+# Display name opcional
+display_name: MyAutonomousDB
+
+# OCPUs y almacenamiento
+cpu_core_count: 2
+data_storage_size_in_tbs: 1
+
+# Password de admin (mejor usar un vault en producción)
+admin_password: "MySecurePassword123"
+

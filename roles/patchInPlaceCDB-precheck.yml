@@ -1,0 +1,35 @@
+---
+# Copyright (c) 2020, 2023 Oracle and/or its affiliates.
+# This software is made available to you under the terms of the GPL 3.0 license or the Apache 2.0 license.
+# GNU General Public License v3.0+ (see COPYING or https://www.gnu.org/licenses/gpl-3.0.txt)
+# Apache License v2.0
+# See LICENSE.TXT for details.
+
+- name: Patch In-Place Oracle Databases by patching OH
+  hosts: localhost
+  collections:
+    - oracle.oci
+  connection: local
+  vars:
+    db_home_ocid: "ocid1.dbhome.oc1..."
+    target_database_software_image_id: "ocid1.databasesoftwareimage.oc1..."
+
+  tasks:
+    - block: 
+
+        - name: Patch Databases in OH
+          oci_database_db_home:
+            # required
+            db_home_id: "{{ db_home_ocid }}"
+           
+            # optional
+            patch_details:
+              # optional
+              # patch_id: "ocid1.patch.oc1..xxxxxxEXAMPLExxxxxx"
+              database_software_image_id: "{{ target_database_software_image_id }}"
+              action: PRECHECK
+             # one_off_patches: [ "one_off_patches_example" ]
+             
+          register: result
+        - debug:
+              msg: "{{ result }}"

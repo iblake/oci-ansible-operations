@@ -1,0 +1,51 @@
+---
+# Copyright (c) 2020, 2023 Oracle and/or its affiliates.
+# This software is made available to you under the terms of the GPL 3.0 license or the Apache 2.0 license.
+# GNU General Public License v3.0+ (see COPYING or https://www.gnu.org/licenses/gpl-3.0.txt)
+# Apache License v2.0
+# See LICENSE.TXT for details.
+
+- name: Scale ExaCS VM Cluster
+  hosts: localhost
+  collections:
+    - oracle.oci
+  connection: local
+  vars:
+    cloud_vmcluster_ocid: "ocid1.cloudvmcluster.oc1..."
+
+  tasks:
+    - block: 
+
+        - name: Update cloud_vm_cluster
+          oci_database_cloud_vm_cluster:
+            # required
+            cloud_vm_cluster_id: "ocid1.cloudvmcluster.oc1..."
+
+            # optional
+            # display_name: "EmeaExaCS_VMCluster1"
+            cpu_core_count: 0
+            # ocpu_count: 3.4
+            # memory_size_in_gbs: 56
+            # db_node_storage_size_in_gbs: 56
+            # data_storage_size_in_tbs: 3.4
+            # storage_size_in_gbs: 56
+            # license_model: BRING_YOUR_OWN_LICENSE
+            # ssh_public_keys: [ "ssh-rsa AAAAB3NzaC1yc2EAAAABJQAAAQEAz..." ]
+            # update_details:
+            #   # optional
+            #   update_id: "ocid1.update.oc1..xxxxxxEXAMPLExxxxxx"
+            #   update_action: ROLLING_APPLY
+            # nsg_ids: [ "nsg_ids_example" ]
+            # backup_network_nsg_ids: [ "backup_network_nsg_ids_example" ]
+            # compute_nodes: [ "compute_nodes_example" ]
+            # freeform_tags: {'Department': 'Finance'}
+            # defined_tags: {'Operations': {'CostCenter': 'US'}}
+            # data_collection_options:
+            #   # optional
+            #   is_diagnostics_events_enabled: true
+            #   is_health_monitoring_enabled: true
+            #   is_incident_logs_enabled: true
+
+          register: vmc
+        - debug:
+              msg: "{{ vmc }}"

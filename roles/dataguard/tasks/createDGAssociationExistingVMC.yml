@@ -1,0 +1,38 @@
+---
+# Copyright (c) 2020, 2023 Oracle and/or its affiliates.
+# This software is made available to you under the terms of the GPL 3.0 license or the Apache 2.0 license.
+# GNU General Public License v3.0+ (see COPYING or https://www.gnu.org/licenses/gpl-3.0.txt)
+# Apache License v2.0
+# See LICENSE.TXT for details.
+
+- name: Creates an Oracle Data Guard Association in an existing VM Cluster
+  hosts: localhost
+  collections:
+    - oracle.oci
+  connection: local
+  vars:
+    peer_vm_cluster_ocid: "ocid1.cloudvmcluster.oc1..."
+
+  tasks:
+    - block: 
+
+        - name: Creates DG association for a DB in an existing VM Cluster
+          oci_database_data_guard_association:
+            # required
+            creation_type: ExistingVmCluster
+            database_admin_password: "WElcome12345##"
+            protection_mode: MAXIMUM_AVAILABILITY
+            transport_type: SYNC
+            state: present
+
+            # optional
+            peer_vm_cluster_id: "{{ peer_vm_cluster_ocid }}"
+            database_software_image_id: "ocid1.databasesoftwareimage.oc1.."
+            peer_db_unique_name: PADBANSSTB
+            peer_sid_prefix: PADBANSSTB
+            peer_db_home_id: "ocid1.dbhome.oc1..."
+            is_active_data_guard_enabled: true
+            
+          register: result
+        - debug:
+              msg: "{{ result }}"

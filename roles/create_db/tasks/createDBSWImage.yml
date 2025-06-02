@@ -1,0 +1,42 @@
+---
+# Copyright (c) 2020, 2023 Oracle and/or its affiliates.
+# This software is made available to you under the terms of the GPL 3.0 license or the Apache 2.0 license.
+# GNU General Public License v3.0+ (see COPYING or https://www.gnu.org/licenses/gpl-3.0.txt)
+# Apache License v2.0
+# See LICENSE.TXT for details.
+
+- name: Create Database Software Image
+  hosts: localhost
+  collections:
+    - oracle.oci
+  connection: local
+  vars:
+    compartment_ocid: "ocid1.compartment.oc1..."
+    dbswimage_display_name: "PADBSWIMAGE1917"
+    db_version: "19.0.0.0"
+    image_shape: "EXADATA_SHAPE"
+    db_image_type: "DATABASE_IMAGE"
+    release_update: "19.17.0.0"
+    one_offs: [31197969]
+
+  tasks:
+    - block: 
+
+        - name: Create DB Software Image
+          oci_database_software_image:
+            # required
+            compartment_id: "{{ compartment_ocid }}"
+            display_name: "{{ dbswimage_display_name }}"
+
+            # optional
+            database_version: "{{ db_version }}"
+            image_shape_family: "{{ image_shape }}"
+            image_type: "{{ db_image_type }}"
+            patch_set: "{{ release_update }}"
+            database_software_image_one_off_patches: "{{ one_offs }}"
+            # ls_inventory: ""
+            # source_db_home_id: ""
+
+          register: dbswimage
+        - debug:
+              msg: "{{ dbswimage }}"

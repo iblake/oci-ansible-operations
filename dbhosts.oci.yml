@@ -1,0 +1,22 @@
+# DB Hosts
+plugin: oracle.oci.oci
+
+config_file: ~/.oci/config
+config_profile: DEFAULT
+
+regions:
+  - eu-frankfurt-1
+
+enable_parallel_processing: yes
+
+fetch_db_hosts: True
+fetch_compute_hosts: False
+
+hostname_format_preferences:
+  - "hostname+'.<domain>.vcnexacs.oraclevcn.com'"
+
+compartments:
+  - compartment_ocid: ocid1.compartment.oc1...
+
+#debug: true
+

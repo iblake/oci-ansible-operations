@@ -1,0 +1,47 @@
+---
+# Copyright (c) 2020, 2023 Oracle and/or its affiliates.
+# This software is made available to you under the terms of the GPL 3.0 license or the Apache 2.0 license.
+# GNU General Public License v3.0+ (see COPYING or https://www.gnu.org/licenses/gpl-3.0.txt)
+# Apache License v2.0
+# See LICENSE.TXT for details.
+
+- name: Creates an Oracle Data Guard Association creating a New VM Cluster
+  hosts: localhost
+  collections:
+    - oracle.oci
+  connection: local
+
+  tasks:
+    - block: 
+
+        - name: Creates DG association for a DB creating a New VM Cluster
+          oci_database_data_guard_association:
+            # required
+            creation_type: NewDbSystem
+            database_admin_password: "WElcome12345##"
+            protection_mode: MAXIMUM_AVAILABILITY
+            transport_type: SYNC
+            state: present
+
+            # optional
+            display_name: "VMCluster2"
+            availability_domain: "bWnP:EU-FRANKFURT-1-AD-2"
+            cpu_core_count: 4
+            subnet_id: "ocid1.subnet.oc1..."
+            nsg_ids: [ "nsg_ids_example" ]
+            hostname: "emeaexacsvm2"
+            time_zone: "UTC"
+            license_model: BRING_YOUR_OWN_LICENS
+            data_collection_options:
+              # optional
+              is_diagnostics_events_enabled: true
+              is_health_monitoring_enabled: true
+              is_incident_logs_enabled: true
+            database_software_image_id: "ocid1.databasesoftwareimage.oc1..."
+            peer_db_unique_name: "PADBANSSTB"
+            peer_sid_prefix: "PADBANSSTB"
+            is_active_data_guard_enabled: true
+                        
+          register: result
+        - debug:
+              msg: "{{ result }}"

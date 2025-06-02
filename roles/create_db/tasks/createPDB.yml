@@ -1,0 +1,37 @@
+---
+# Copyright (c) 2020, 2023 Oracle and/or its affiliates.
+# This software is made available to you under the terms of the GPL 3.0 license or the Apache 2.0 license.
+# GNU General Public License v3.0+ (see COPYING or https://www.gnu.org/licenses/gpl-3.0.txt)
+# Apache License v2.0
+# See LICENSE.TXT for details.
+
+- name: Create Pluggable Database
+  hosts: localhost
+  collections:
+    - oracle.oci
+  connection: local
+  vars:
+    container_database_ocid: "ocid1.database.oc1..."
+
+  tasks:
+    - block: 
+
+        - name: Create pluggable database
+          oci_database_pluggable_database:
+            # required
+            pdb_name: "PADBANS2PDB2"
+            container_database_id: "{{ container_database_ocid }}"
+            state: present
+            force_create: yes
+
+            # optional
+            # compartment_id: "{{ compartment_ocid }}"
+            pdb_admin_password: "WElcome12345##"
+            tde_wallet_password: "WElcome12345##"
+            should_pdb_admin_account_be_locked: false
+            # freeform_tags: {'Department': 'Finance'}
+            # defined_tags: {'Operations': {'CostCenter': 'US'}}
+             
+          register: pdb
+        - debug:
+              msg: "{{ pdb }}"

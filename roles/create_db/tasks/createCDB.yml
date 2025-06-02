@@ -1,0 +1,65 @@
+---
+# Copyright (c) 2020, 2023 Oracle and/or its affiliates.
+# This software is made available to you under the terms of the GPL 3.0 license or the Apache 2.0 license.
+# GNU General Public License v3.0+ (see COPYING or https://www.gnu.org/licenses/gpl-3.0.txt)
+# Apache License v2.0
+# See LICENSE.TXT for details.
+
+- name: Create Oracle Database
+  hosts: localhost
+  collections:
+    - oracle.oci
+  connection: local
+  vars:
+    db_home_ocid: "ocid1.dbhome.oc1..."
+
+  tasks:
+    - block: 
+
+        - name: Create database with source = NONE
+          oci_database_database:
+            # required
+            db_home_id: "{{ db_home_ocid }}"
+            state: present
+            force_create: yes
+            database:
+              # required
+              admin_password: "WElcome12345##"
+
+              # optional
+              db_name: "PADBANS1"
+              db_unique_name: "PADBANS1"
+              # database_software_image_id: "{{ database_software_image_ocid }}"
+              pdb_name: "PADBANS1PDB1"
+              tde_wallet_password: "WElcome12345##"
+              character_set: "AL32UTF8"
+              ncharacter_set: "AL16UTF16"
+              db_workload: OLTP
+              db_backup_config:
+                # optional
+                auto_backup_enabled: true
+                recovery_window_in_days: 56
+                auto_backup_window: SLOT_ONE
+              #   backup_destination_details:
+              #   - # required
+              #     type: NFS
+
+              #     # optional
+              #     id: "ocid1.resource.oc1..xxxxxxEXAMPLExxxxxx"
+              #     vpc_user: vpc_user_example
+              #     vpc_password: example-password
+              #     internet_proxy: internet_proxy_example
+              # freeform_tags: {'Department': 'Finance'}
+              # defined_tags: {'Operations': {'CostCenter': 'US'}}
+              # kms_key_id: "ocid1.kmskey.oc1..xxxxxxEXAMPLExxxxxx"
+              # kms_key_version_id: "ocid1.kmskeyversion.oc1..xxxxxxEXAMPLExxxxxx"
+              # vault_id: "ocid1.vault.oc1..xxxxxxEXAMPLExxxxxx"
+              sid_prefix: "PADBANS1"
+            # optional
+            db_version: "19.0.0.0"
+            source: NONE
+            # kms_key_id: "ocid1.kmskey.oc1..xxxxxxEXAMPLExxxxxx"
+            # kms_key_version_id: "ocid1.kmskeyversion.oc1..xxxxxxEXAMPLExxxxxx"
+          register: database
+        - debug:
+              msg: "{{ database }}"
